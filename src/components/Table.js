@@ -18,6 +18,34 @@ function Table() {
           onChange={ (event) => setFilterByName(event.target.value) }
         />
       </label>
+      <label>
+        Column
+        <select data-testid='column-filter'>
+          <option>population</option>
+          <option>orbital_period</option>
+          <option>diameter</option>
+          <option>rotation_period</option>
+          <option>surface_water</option>
+        </select>
+      </label>
+      <label>
+        Comparison
+        <select data-testid='comparison-filter'>
+          <option>maior que</option>
+          <option>menor que</option>
+          <option>igual a</option>
+        </select>
+      </label>
+      <label>
+        Value
+        <input type="number" data-testid='value-filter' />
+      </label>
+      <button
+          type="button"
+          data-testid='button-filter'
+        >
+          Filter
+        </button>
       <table>
         <thead>
           <tr>
