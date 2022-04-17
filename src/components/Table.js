@@ -1,11 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import planetsContext from '../context/PlanetsContext';
 
 function Table() {
   const { planetList } = useContext(planetsContext);
 
+  const [filterByName, setFilterByName] = useState('');
+
   return (
-    <div>
+    <>
+      <label htmlFor="planetName">
+        Planet Name:
+        <input
+          data-testid="name-filter"
+          type="text"
+          name="planetName"
+          value={ filterByName }
+          onChange={ (event) => setFilterByName(event.target.value) }
+        />
+      </label>
       <table>
         <thead>
           <tr>
@@ -27,7 +39,16 @@ function Table() {
         <tbody>
           {
             planetList ? (
-              planetList.map((planet, index) => (
+              // Referência para o filtro por nome do planeta:
+              // https://www.youtube.com/watch?v=mZvKPtH9Fzo&ab_channel=PedroTech
+              planetList.filter((planets) => {
+                let result = '';
+                if (filterByName === '') {
+                  result = planets;
+                } if (planets.name.toLowerCase().includes(filterByName.toLowerCase())) {
+                  result = planets;
+                } return result;
+              }).map((planet, index) => (
                 <tr key={ index }>
                   <td>{planet.name}</td>
                   <td>{planet.rotation_period}</td>
@@ -48,7 +69,7 @@ function Table() {
           }
         </tbody>
       </table>
-    </div>
+    </>
   );
 }
 
