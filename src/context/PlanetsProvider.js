@@ -6,6 +6,15 @@ import PlanetsContext from './PlanetsContext';
 function PlanetsProvider({ children }) {
   const [planetList, setplanetList] = useState('');
   const [filterByName, setFilterByName] = useState('');
+  // const [columnFilter, setColumnFilter] = useState('');
+  // const [comparisonFilter, setComparisonFilter] = useState('');
+  // const [valueFilter, setValueFilter] = useState(0);
+  const [numericFilters, setNumericFilters] = useState({
+    column: '',
+    comparison: '',
+    value: '',
+  });
+  const [filterByNumericValues, setFilterByNumericValues] = useState([]);
 
   useEffect(() => {
     const getPlanetsWithoutResidents = async () => {
@@ -19,7 +28,29 @@ function PlanetsProvider({ children }) {
   }, []);
 
   return (
-    <PlanetsContext.Provider value={ { planetList, filterByName, setFilterByName } }>
+    <PlanetsContext.Provider
+      value={ {
+        planetList,
+
+        filterByName,
+        setFilterByName,
+
+        // columnFilter,
+        // setColumnFilter,
+
+        // comparisonFilter,
+        // setComparisonFilter,
+
+        // valueFilter,
+        // setValueFilter,
+
+        numericFilters,
+        setNumericFilters,
+
+        filterByNumericValues,
+        setFilterByNumericValues,
+      } }
+    >
       {children}
     </PlanetsContext.Provider>
   );
