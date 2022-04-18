@@ -5,6 +5,7 @@ import PlanetsContext from './PlanetsContext';
 
 function PlanetsProvider({ children }) {
   const [planetList, setplanetList] = useState('');
+  const [filterByName, setFilterByName] = useState('');
 
   useEffect(() => {
     const getPlanetsWithoutResidents = async () => {
@@ -18,7 +19,7 @@ function PlanetsProvider({ children }) {
   }, []);
 
   return (
-    <PlanetsContext.Provider value={ { planetList } }>
+    <PlanetsContext.Provider value={ { planetList, filterByName, setFilterByName } }>
       {children}
     </PlanetsContext.Provider>
   );
