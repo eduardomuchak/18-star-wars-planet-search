@@ -7,11 +7,17 @@ function PlanetsProvider({ children }) {
   const [planetList, setPlanetList] = useState([]);
   const [filterByName, setFilterByName] = useState('');
   const [numericFilters, setNumericFilters] = useState({
-    column: '',
-    comparison: '',
+    column: 'population',
+    comparison: 'maior que',
     value: 0,
   });
-  const [filterByNumericValues, setFilterByNumericValues] = useState([]);
+  const [filterByNumericValues, setFilterByNumericValues] = useState([
+    {
+      column: 'diameter',
+      comparison: 'maior que',
+      value: 0,
+    },
+  ]);
 
   useEffect(() => {
     const getPlanetsWithoutResidents = async () => {

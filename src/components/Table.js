@@ -2,10 +2,16 @@ import React, { useContext } from 'react';
 import planetsContext from '../context/PlanetsContext';
 
 function Table() {
-  const { planetList, filterByName } = useContext(planetsContext);
+  const { planetList, filterByName, filterByNumericValues } = useContext(planetsContext);
 
   // console.log(planetList);
   // console.log(filterByNumericValues);
+
+  const comparisonValues = (comparisonOperator, planetColumn, filterValue) => {
+    if (comparisonOperator === 'maior que') return planetColumn > filterValue;
+    if (comparisonOperator === 'menor que') return planetColumn < filterValue;
+    if (comparisonOperator === 'igual a') return planetColumn === filterValue;
+  };
 
   return (
     <table>
@@ -39,6 +45,11 @@ function Table() {
                 searchResult = planets;
               } return searchResult;
             })
+              .filter((planet) => comparisonValues(
+                filterByNumericValues[0].comparison,
+                Number(planet[filterByNumericValues[0].column]),
+                Number(filterByNumericValues[0].value),
+              ))
               .map((planet, index) => (
                 <tr key={ index }>
                   <td>{planet.name}</td>

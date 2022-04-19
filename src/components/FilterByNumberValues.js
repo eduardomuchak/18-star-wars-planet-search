@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import planetsContext from '../context/PlanetsContext';
 
 function FilterByNumberValues() {
@@ -6,22 +6,22 @@ function FilterByNumberValues() {
     numericFilters,
     setNumericFilters,
     setFilterByNumericValues,
-    planetList,
-    setPlanetList,
-    filterByNumericValues,
+    // planetList,
+    // setPlanetList,
+    // filterByNumericValues,
   } = useContext(planetsContext);
 
-  const comparisonValues = (comparisonOperator, planetColumn, filterValue) => {
-    if (comparisonOperator === 'maior que') return planetColumn > filterValue;
-    if (comparisonOperator === 'menor que') return planetColumn < filterValue;
-    if (comparisonOperator === 'igual a') return planetColumn === filterValue;
-  };
+  // const comparisonValues = (comparisonOperator, planetColumn, filterValue) => {
+  //   if (comparisonOperator === 'maior que') return planetColumn > filterValue;
+  //   if (comparisonOperator === 'menor que') return planetColumn < filterValue;
+  //   if (comparisonOperator === 'igual a') return planetColumn === filterValue;
+  // };
 
-  const filteredPlanets = () => planetList.filter((planet) => comparisonValues(
-    filterByNumericValues[0].comparison,
-    Number(planet[filterByNumericValues[0].column]),
-    Number(filterByNumericValues[0].value),
-  ));
+  // const filteredPlanets = () => planetList.filter((planet) => comparisonValues(
+  //   filterByNumericValues[0].comparison,
+  //   Number(planet[filterByNumericValues[0].column]),
+  //   Number(filterByNumericValues[0].value),
+  // ));
 
   const handleChange = ({ target: { name, value } }) => {
     setNumericFilters({ ...numericFilters, [name]: value });
@@ -35,10 +35,10 @@ function FilterByNumberValues() {
     }]);
   };
 
-  useEffect(() => {
-    setPlanetList(filteredPlanets());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filterByNumericValues]);
+  // useEffect(() => {
+  //   setPlanetList(filteredPlanets());
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [filterByNumericValues]);
 
   return (
     <>
