@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import planetsContext from '../context/PlanetsContext';
 
 function Table() {
-  const { planetList, filterByName, filterByNumericValues } = useContext(planetsContext);
+  const { planetList, filterByName } = useContext(planetsContext);
 
-  console.log(planetList);
-  console.log(filterByNumericValues);
+  // console.log(planetList);
+  // console.log(filterByNumericValues);
 
   return (
     <table>

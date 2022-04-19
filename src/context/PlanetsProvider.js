@@ -9,7 +9,7 @@ function PlanetsProvider({ children }) {
   const [numericFilters, setNumericFilters] = useState({
     column: '',
     comparison: '',
-    value: '',
+    value: 0,
   });
   const [filterByNumericValues, setFilterByNumericValues] = useState([]);
 

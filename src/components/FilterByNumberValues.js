@@ -78,6 +78,7 @@ function FilterByNumberValues() {
           name="value"
           value={ numericFilters.value }
           onChange={ (event) => handleChange(event) }
+          min="0"
         />
       </label>
       <button
