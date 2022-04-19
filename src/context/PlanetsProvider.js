@@ -4,11 +4,8 @@ import getPlanetsInfo from '../services/planetsAPI';
 import PlanetsContext from './PlanetsContext';
 
 function PlanetsProvider({ children }) {
-  const [planetList, setplanetList] = useState('');
+  const [planetList, setPlanetList] = useState([]);
   const [filterByName, setFilterByName] = useState('');
-  // const [columnFilter, setColumnFilter] = useState('');
-  // const [comparisonFilter, setComparisonFilter] = useState('');
-  // const [valueFilter, setValueFilter] = useState(0);
   const [numericFilters, setNumericFilters] = useState({
     column: '',
     comparison: '',
@@ -19,10 +16,9 @@ function PlanetsProvider({ children }) {
   useEffect(() => {
     const getPlanetsWithoutResidents = async () => {
       const planets = await getPlanetsInfo();
-      // console.log(planets);
       const planetsWithoutResidents = planets.results
         .map(({ residents, ...rest }) => rest);
-      setplanetList(planetsWithoutResidents);
+      setPlanetList(planetsWithoutResidents);
     };
     getPlanetsWithoutResidents();
   }, []);
@@ -31,18 +27,10 @@ function PlanetsProvider({ children }) {
     <PlanetsContext.Provider
       value={ {
         planetList,
+        setPlanetList,
 
         filterByName,
         setFilterByName,
-
-        // columnFilter,
-        // setColumnFilter,
-
-        // comparisonFilter,
-        // setComparisonFilter,
-
-        // valueFilter,
-        // setValueFilter,
 
         numericFilters,
         setNumericFilters,

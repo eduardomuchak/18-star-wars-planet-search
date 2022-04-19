@@ -1,15 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import planetsContext from '../context/PlanetsContext';
-// import useFilters from '../hooks/useFilters';
 
 function FilterByNumberValues() {
   const {
     numericFilters,
     setNumericFilters,
     setFilterByNumericValues,
+    planetList,
+    setPlanetList,
+    filterByNumericValues,
   } = useContext(planetsContext);
 
-  // const [handleChange, handleClick] = useFilters();
+  const comparisonValues = (comparisonOperator, planetColumn, filterValue) => {
+    if (comparisonOperator === 'maior que') return planetColumn > filterValue;
+    if (comparisonOperator === 'menor que') return planetColumn < filterValue;
+    if (comparisonOperator === 'igual a') return planetColumn === filterValue;
+  };
+
+  const filteredPlanets = () => planetList.filter((planet) => comparisonValues(
+    filterByNumericValues[0].comparison,
+    Number(planet[filterByNumericValues[0].column]),
+    Number(filterByNumericValues[0].value),
+  ));
 
   const handleChange = ({ target: { name, value } }) => {
     setNumericFilters({ ...numericFilters, [name]: value });
@@ -22,6 +34,11 @@ function FilterByNumberValues() {
       value: numericFilters.value,
     }]);
   };
+
+  useEffect(() => {
+    setPlanetList(filteredPlanets());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterByNumericValues]);
 
   return (
     <>

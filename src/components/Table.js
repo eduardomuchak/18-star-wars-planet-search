@@ -2,7 +2,11 @@ import React, { useContext } from 'react';
 import planetsContext from '../context/PlanetsContext';
 
 function Table() {
-  const { planetList, filterByName } = useContext(planetsContext);
+  const { planetList, filterByName, filterByNumericValues } = useContext(planetsContext);
+
+  console.log(planetList);
+  console.log(filterByNumericValues);
+
   return (
     <table>
       <thead>
@@ -34,23 +38,24 @@ function Table() {
               } if (planets.name.toLowerCase().includes(filterByName.toLowerCase())) {
                 searchResult = planets;
               } return searchResult;
-            }).map((planet, index) => (
-              <tr key={ index }>
-                <td>{planet.name}</td>
-                <td>{planet.rotation_period}</td>
-                <td>{planet.orbital_period}</td>
-                <td>{planet.diameter}</td>
-                <td>{planet.climate}</td>
-                <td>{planet.gravity}</td>
-                <td>{planet.terrain}</td>
-                <td>{planet.surface_water}</td>
-                <td>{planet.population}</td>
-                <td>{planet.films}</td>
-                <td>{planet.created}</td>
-                <td>{planet.edited}</td>
-                <td>{planet.url}</td>
-              </tr>
-            ))
+            })
+              .map((planet, index) => (
+                <tr key={ index }>
+                  <td>{planet.name}</td>
+                  <td>{planet.rotation_period}</td>
+                  <td>{planet.orbital_period}</td>
+                  <td>{planet.diameter}</td>
+                  <td>{planet.climate}</td>
+                  <td>{planet.gravity}</td>
+                  <td>{planet.terrain}</td>
+                  <td>{planet.surface_water}</td>
+                  <td>{planet.population}</td>
+                  <td>{planet.films}</td>
+                  <td>{planet.created}</td>
+                  <td>{planet.edited}</td>
+                  <td>{planet.url}</td>
+                </tr>
+              ))
           ) : null
         }
       </tbody>
