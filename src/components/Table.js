@@ -1,11 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import planetsContext from '../context/PlanetsContext';
+import getPlanetsInfo from '../services/planetsAPI';
 
 function Table() {
-  const { planetList, filterByName, filterByNumericValues } = useContext(planetsContext);
+  const { planetList, setPlanetList, filterByName,
+    filterByNumericValues } = useContext(planetsContext);
 
   // console.log(planetList);
   // console.log(filterByNumericValues);
+
+  useEffect(() => {
+    const getPlanetsWithoutResidents = async () => {
+      const planets = await getPlanetsInfo();
+      const planetsWithoutResidents = planets.results
+        .map(({ residents, ...rest }) => rest);
+      setPlanetList(planetsWithoutResidents);
+    };
+    getPlanetsWithoutResidents();
+  }, [setPlanetList]);
 
   const comparisonValues = (comparisonOperator, planetColumn, filterValue) => {
     if (comparisonOperator === 'maior que') return planetColumn > filterValue;
@@ -37,14 +49,15 @@ function Table() {
           planetList ? (
           // Referência para o filtro por nome do planeta:
           // https://www.youtube.com/watch?v=mZvKPtH9Fzo&ab_channel=PedroTech
-            planetList.filter((planets) => {
-              let searchResult = '';
-              if (filterByName === '') {
-                searchResult = planets;
-              } if (planets.name.toLowerCase().includes(filterByName.toLowerCase())) {
-                searchResult = planets;
-              } return searchResult;
-            })
+            planetList
+              .filter((planets) => {
+                let searchResult = '';
+                if (filterByName === '') {
+                  searchResult = planets;
+                } if (planets.name.toLowerCase().includes(filterByName.toLowerCase())) {
+                  searchResult = planets;
+                } return searchResult;
+              })
               .filter((planet) => comparisonValues(
                 filterByNumericValues[0].comparison,
                 Number(planet[filterByNumericValues[0].column]),
