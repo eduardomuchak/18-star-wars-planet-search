@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import planetsContext from '../context/PlanetsContext';
 
 function FilterByNumberValues() {
@@ -6,34 +6,20 @@ function FilterByNumberValues() {
     numericFilters,
     setNumericFilters,
     setFilterByNumericValues,
-    planetList,
-    setPlanetList,
     filterByNumericValues,
-    comparisonValues,
   } = useContext(planetsContext);
-
-  const filteredPlanets = () => planetList.filter((planet) => comparisonValues(
-    filterByNumericValues[0].comparison,
-    Number(planet[filterByNumericValues[0].column]),
-    Number(filterByNumericValues[0].value),
-  ));
 
   const handleChange = ({ target: { name, value } }) => {
     setNumericFilters({ ...numericFilters, [name]: value });
   };
 
   const handleClick = () => {
-    setFilterByNumericValues([{
+    setFilterByNumericValues([...filterByNumericValues, {
       column: numericFilters.column,
       comparison: numericFilters.comparison,
       value: numericFilters.value,
     }]);
   };
-
-  useEffect(() => {
-    setPlanetList(filteredPlanets());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filterByNumericValues]);
 
   return (
     <>
@@ -85,9 +71,9 @@ function FilterByNumberValues() {
       </button>
       <div>
         {filterByNumericValues.map((filter, index) => (
-          <span key={ index }>
+          <p key={ index }>
             {`${filter.column} ${filter.comparison} ${filter.value}`}
-          </span>
+          </p>
         ))}
       </div>
     </>

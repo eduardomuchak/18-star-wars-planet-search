@@ -13,12 +13,6 @@ function PlanetsProvider({ children }) {
   });
   const [filterByNumericValues, setFilterByNumericValues] = useState([]);
 
-  const comparisonValues = (comparisonOperator, planetColumn, filterValue) => {
-    if (comparisonOperator === 'maior que') return planetColumn > filterValue;
-    if (comparisonOperator === 'menor que') return planetColumn < filterValue;
-    if (comparisonOperator === 'igual a') return planetColumn === filterValue;
-  };
-
   const filterPlanets = () => {
     if (filterByNumericValues.length === 0) {
       const filteredPlanets = planetList.filter((planet) => planet.name.toLowerCase()
@@ -60,7 +54,6 @@ function PlanetsProvider({ children }) {
     setNumericFilters,
     filterByNumericValues,
     setFilterByNumericValues,
-    comparisonValues,
     filterPlanets,
     filteredPlanetList,
     setFilteredPlanetList,
