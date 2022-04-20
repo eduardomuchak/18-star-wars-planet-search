@@ -9,13 +9,8 @@ function FilterByNumberValues() {
     planetList,
     setPlanetList,
     filterByNumericValues,
+    comparisonValues,
   } = useContext(planetsContext);
-
-  const comparisonValues = (comparisonOperator, planetColumn, filterValue) => {
-    if (comparisonOperator === 'maior que') return planetColumn > filterValue;
-    if (comparisonOperator === 'menor que') return planetColumn < filterValue;
-    if (comparisonOperator === 'igual a') return planetColumn === filterValue;
-  };
 
   const filteredPlanets = () => planetList.filter((planet) => comparisonValues(
     filterByNumericValues[0].comparison,
@@ -88,6 +83,13 @@ function FilterByNumberValues() {
       >
         Filter
       </button>
+      <div>
+        {filterByNumericValues.map((filter, index) => (
+          <span key={ index }>
+            {`${filter.column} ${filter.comparison} ${filter.value}`}
+          </span>
+        ))}
+      </div>
     </>
   );
 }

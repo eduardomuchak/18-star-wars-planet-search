@@ -18,21 +18,27 @@ function PlanetsProvider({ children }) {
     },
   ]);
 
+  const comparisonValues = (comparisonOperator, planetColumn, filterValue) => {
+    if (comparisonOperator === 'maior que') return planetColumn > filterValue;
+    if (comparisonOperator === 'menor que') return planetColumn < filterValue;
+    if (comparisonOperator === 'igual a') return planetColumn === filterValue;
+  };
+
+  const context = {
+    planetList,
+    setPlanetList,
+    filterByName,
+    setFilterByName,
+    numericFilters,
+    setNumericFilters,
+    filterByNumericValues,
+    setFilterByNumericValues,
+    comparisonValues,
+  };
+
   return (
     <PlanetsContext.Provider
-      value={ {
-        planetList,
-        setPlanetList,
-
-        filterByName,
-        setFilterByName,
-
-        numericFilters,
-        setNumericFilters,
-
-        filterByNumericValues,
-        setFilterByNumericValues,
-      } }
+      value={ context }
     >
       {children}
     </PlanetsContext.Provider>

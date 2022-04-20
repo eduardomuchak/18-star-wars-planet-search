@@ -4,7 +4,7 @@ import getPlanetsInfo from '../services/planetsAPI';
 
 function Table() {
   const { planetList, setPlanetList, filterByName,
-    filterByNumericValues } = useContext(planetsContext);
+    filterByNumericValues, comparisonValues } = useContext(planetsContext);
 
   // console.log(planetList);
   // console.log(filterByNumericValues);
@@ -18,12 +18,6 @@ function Table() {
     };
     getPlanetsWithoutResidents();
   }, [setPlanetList]);
-
-  const comparisonValues = (comparisonOperator, planetColumn, filterValue) => {
-    if (comparisonOperator === 'maior que') return planetColumn > filterValue;
-    if (comparisonOperator === 'menor que') return planetColumn < filterValue;
-    if (comparisonOperator === 'igual a') return planetColumn === filterValue;
-  };
 
   return (
     <table>
@@ -47,8 +41,8 @@ function Table() {
       <tbody>
         {
           planetList ? (
-          // Referência para o filtro por nome do planeta:
-          // https://www.youtube.com/watch?v=mZvKPtH9Fzo&ab_channel=PedroTech
+            // Referência para o filtro por nome do planeta:
+            // https://www.youtube.com/watch?v=mZvKPtH9Fzo&ab_channel=PedroTech
             planetList
               .filter((planets) => {
                 let searchResult = '';
