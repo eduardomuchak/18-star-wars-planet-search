@@ -4,7 +4,8 @@ import getPlanetsInfo from '../services/planetsAPI';
 
 function Table() {
   const { planetList, setPlanetList, filterByName,
-    filterByNumericValues, comparisonValues } = useContext(planetsContext);
+    filterByNumericValues, filterPlanets,
+    filteredPlanetList, setFilteredPlanetList } = useContext(planetsContext);
 
   // console.log(planetList);
   // console.log(filterByNumericValues);
@@ -15,9 +16,16 @@ function Table() {
       const planetsWithoutResidents = planets.results
         .map(({ residents, ...rest }) => rest);
       setPlanetList(planetsWithoutResidents);
+      setFilteredPlanetList(planetsWithoutResidents);
     };
     getPlanetsWithoutResidents();
-  }, [setPlanetList]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    filterPlanets();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterByName, filterByNumericValues]);
 
   return (
     <table>
@@ -41,22 +49,7 @@ function Table() {
       <tbody>
         {
           planetList ? (
-            // Referência para o filtro por nome do planeta:
-            // https://www.youtube.com/watch?v=mZvKPtH9Fzo&ab_channel=PedroTech
-            planetList
-              .filter((planets) => {
-                let searchResult = '';
-                if (filterByName === '') {
-                  searchResult = planets;
-                } if (planets.name.toLowerCase().includes(filterByName.toLowerCase())) {
-                  searchResult = planets;
-                } return searchResult;
-              })
-              .filter((planet) => comparisonValues(
-                filterByNumericValues[0].comparison,
-                Number(planet[filterByNumericValues[0].column]),
-                Number(filterByNumericValues[0].value),
-              ))
+            filteredPlanetList
               .map((planet, index) => (
                 <tr key={ index }>
                   <td>{planet.name}</td>
