@@ -28,17 +28,23 @@ function PlanetsProvider({ children }) {
       filterByNumericValues.forEach(({ comparison, column, value }) => {
         if (comparison === 'maior que') {
           const filteredPlanets = filteredPlanetList
-            .filter((planet) => planet[column] > Number(value));
+            .filter((planet) => planet.name.toLowerCase()
+              .includes(filterByName.toLowerCase())
+              && Number(planet[column]) > Number(value));
           setFilteredPlanetList(filteredPlanets);
         }
         if (comparison === 'menor que') {
           const filteredPlanets = filteredPlanetList
-            .filter((planet) => planet[column] < Number(value));
+            .filter((planet) => planet.name.toLowerCase()
+              .includes(filterByName.toLowerCase())
+              && Number(planet[column]) < Number(value));
           setFilteredPlanetList(filteredPlanets);
         }
         if (comparison === 'igual a') {
           const filteredPlanets = filteredPlanetList
-            .filter((planet) => planet[column] === Number(value));
+            .filter((planet) => planet.name.toLowerCase()
+              .includes(filterByName.toLowerCase())
+              && Number(planet[column]) === Number(value));
           setFilteredPlanetList(filteredPlanets);
         }
       });
@@ -61,9 +67,7 @@ function PlanetsProvider({ children }) {
   };
 
   return (
-    <PlanetsContext.Provider
-      value={ context }
-    >
+    <PlanetsContext.Provider value={ context }>
       {children}
     </PlanetsContext.Provider>
   );
