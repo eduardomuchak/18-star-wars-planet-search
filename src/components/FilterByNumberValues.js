@@ -11,10 +11,12 @@ function FilterByNumberValues() {
     setColumnFilters,
     setFilteredPlanetList,
     planetList,
+    filteredPlanetList,
   } = useContext(planetsContext);
 
   const handleChange = ({ target: { name, value } }) => {
     setNumericFilters({ ...numericFilters, [name]: value });
+    setFilteredPlanetList(filteredPlanetList);
   };
 
   const handleClick = () => {
@@ -28,12 +30,16 @@ function FilterByNumberValues() {
 
   const removeFilter = (id) => {
     const refreshFilters = filterByNumericValues.filter((filter) => filter.id !== id);
+    setFilteredPlanetList(planetList);
     setFilterByNumericValues(refreshFilters);
   };
 
   const removeAllFilters = () => {
+    const initialColumnFilters = ['population', 'orbital_period',
+      'diameter', 'rotation_period', 'surface_water'];
     setFilteredPlanetList(planetList);
     setFilterByNumericValues([]);
+    setColumnFilters(initialColumnFilters);
   };
 
   useEffect(() => {
@@ -105,7 +111,7 @@ function FilterByNumberValues() {
         data-testid="button-remove-filters"
         onClick={ () => removeAllFilters() }
       >
-        Remove All Filter
+        Remove All Filters
       </button>
       <div>
         {filterByNumericValues.map((filter) => (
