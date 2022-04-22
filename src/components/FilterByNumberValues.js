@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import planetsContext from '../context/PlanetsContext';
 
 function FilterByNumberValues() {
@@ -7,6 +7,8 @@ function FilterByNumberValues() {
     setNumericFilters,
     setFilterByNumericValues,
     filterByNumericValues,
+    columnFilters,
+    setColumnFilters,
   } = useContext(planetsContext);
 
   const handleChange = ({ target: { name, value } }) => {
@@ -18,8 +20,19 @@ function FilterByNumberValues() {
       column: numericFilters.column,
       comparison: numericFilters.comparison,
       value: numericFilters.value,
+      id: Math.floor(Date.now() * Math.random()),
     }]);
   };
+
+  useEffect(() => {
+    if (filterByNumericValues) {
+      const savedFiltersColumns = filterByNumericValues.map(({ column }) => column);
+      const newFilters = columnFilters
+        .filter((column) => !savedFiltersColumns.includes(column));
+      setColumnFilters(newFilters);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterByNumericValues]);
 
   return (
     <>
@@ -31,11 +44,8 @@ function FilterByNumberValues() {
           onChange={ (event) => handleChange(event) }
           value={ numericFilters.column }
         >
-          <option>population</option>
-          <option>orbital_period</option>
-          <option>diameter</option>
-          <option>rotation_period</option>
-          <option>surface_water</option>
+          {columnFilters.map((column, index) => (
+            <option key={ index } value={ column }>{column}</option>))}
         </select>
       </label>
       <label htmlFor="comparison">
