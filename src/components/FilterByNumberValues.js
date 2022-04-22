@@ -34,6 +34,15 @@ function FilterByNumberValues() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterByNumericValues]);
 
+  useEffect(() => {
+    setNumericFilters({
+      column: columnFilters[0],
+      comparison: 'maior que',
+      value: 0,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [columnFilters]);
+
   return (
     <>
       <label htmlFor="column">
