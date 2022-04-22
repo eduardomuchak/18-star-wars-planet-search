@@ -9,6 +9,8 @@ function FilterByNumberValues() {
     filterByNumericValues,
     columnFilters,
     setColumnFilters,
+    setFilteredPlanetList,
+    planetList,
   } = useContext(planetsContext);
 
   const handleChange = ({ target: { name, value } }) => {
@@ -22,6 +24,16 @@ function FilterByNumberValues() {
       value: numericFilters.value,
       id: Math.floor(Date.now() * Math.random()),
     }]);
+  };
+
+  const removeFilter = (id) => {
+    const refreshFilters = filterByNumericValues.filter((filter) => filter.id !== id);
+    setFilterByNumericValues(refreshFilters);
+  };
+
+  const removeAllFilters = () => {
+    setFilteredPlanetList(planetList);
+    setFilterByNumericValues([]);
   };
 
   useEffect(() => {
@@ -88,11 +100,29 @@ function FilterByNumberValues() {
       >
         Filter
       </button>
+      <button
+        type="button"
+        data-testid="button-remove-filters"
+        onClick={ () => removeAllFilters() }
+      >
+        Remove All Filter
+      </button>
       <div>
-        {filterByNumericValues.map((filter, index) => (
-          <p key={ index }>
-            {`${filter.column} ${filter.comparison} ${filter.value}`}
-          </p>
+        {filterByNumericValues.map((filter) => (
+          <div
+            key={ filter.id }
+            data-testid="filter"
+          >
+            <span>
+              {`${filter.column} ${filter.comparison}: ${filter.value}`}
+            </span>
+            <button
+              type="button"
+              onClick={ () => removeFilter(filter.id) }
+            >
+              X
+            </button>
+          </div>
         ))}
       </div>
     </>
