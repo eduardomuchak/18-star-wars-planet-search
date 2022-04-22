@@ -14,31 +14,21 @@ function PlanetsProvider({ children }) {
   const [filterByNumericValues, setFilterByNumericValues] = useState([]);
 
   const filterPlanets = () => {
-    if (filterByNumericValues.length === 0) {
-      const filteredPlanets = planetList.filter((planet) => planet.name.toLowerCase()
-        .includes(filterByName.toLowerCase()));
-      setFilteredPlanetList(filteredPlanets);
-    } else {
+    if (filterByNumericValues) {
       filterByNumericValues.forEach(({ comparison, column, value }) => {
         if (comparison === 'maior que') {
           const filteredPlanets = filteredPlanetList
-            .filter((planet) => planet.name.toLowerCase()
-              .includes(filterByName.toLowerCase())
-              && Number(planet[column]) > Number(value));
+            .filter((planet) => Number(planet[column]) > Number(value));
           setFilteredPlanetList(filteredPlanets);
         }
         if (comparison === 'menor que') {
           const filteredPlanets = filteredPlanetList
-            .filter((planet) => planet.name.toLowerCase()
-              .includes(filterByName.toLowerCase())
-              && Number(planet[column]) < Number(value));
+            .filter((planet) => Number(planet[column]) < Number(value));
           setFilteredPlanetList(filteredPlanets);
         }
         if (comparison === 'igual a') {
           const filteredPlanets = filteredPlanetList
-            .filter((planet) => planet.name.toLowerCase()
-              .includes(filterByName.toLowerCase())
-              && Number(planet[column]) === Number(value));
+            .filter((planet) => Number(planet[column]) === Number(value));
           setFilteredPlanetList(filteredPlanets);
         }
       });

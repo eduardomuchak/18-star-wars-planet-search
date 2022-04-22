@@ -25,7 +25,7 @@ function Table() {
   useEffect(() => {
     filterPlanets();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filterByName, filterByNumericValues]);
+  }, [filterByNumericValues]);
 
   return (
     <table>
@@ -50,6 +50,14 @@ function Table() {
         {
           planetList ? (
             filteredPlanetList
+              .filter((planets) => {
+                let searchResult = '';
+                if (filterByName === '') {
+                  searchResult = planets;
+                } if (planets.name.toLowerCase().includes(filterByName.toLowerCase())) {
+                  searchResult = planets;
+                } return searchResult;
+              })
               .map((planet, index) => (
                 <tr key={ index }>
                   <td>{planet.name}</td>
