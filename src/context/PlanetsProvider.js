@@ -14,6 +14,10 @@ function PlanetsProvider({ children }) {
   const [filterByNumericValues, setFilterByNumericValues] = useState([]);
   const [columnFilters, setColumnFilters] = useState(['population', 'orbital_period',
     'diameter', 'rotation_period', 'surface_water']);
+  const [order, setOrder] = useState({
+    column: 'population',
+    sort: 'ASC',
+  });
 
   const filterPlanets = () => {
     if (filterByNumericValues) {
@@ -51,6 +55,8 @@ function PlanetsProvider({ children }) {
     setFilteredPlanetList,
     columnFilters,
     setColumnFilters,
+    order,
+    setOrder,
   };
 
   return (
